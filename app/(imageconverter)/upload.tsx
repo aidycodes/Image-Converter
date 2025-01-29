@@ -3,8 +3,7 @@
 import React from 'react';
 import { useState } from "react";
 import { Upload, Image as ImageIcon, ArrowRight, X, CircleCheck } from 'lucide-react';
-import Image from 'next/image';
-import { Button } from "@/components/ui/button";
+import { Loader2 } from 'lucide-react';
 
 interface UploadPanelProps {
     handleFileInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -41,14 +40,15 @@ const UploadPanel = ({handleFileInput, handleSubmit, selectedFile, selectedForma
     return (
         <>
             <div
-            className={`border-2 border-dashed rounded-lg p-12 text-center cursor-pointer transition-colors relative
+            className={`border-2 flex items-center flex-col justify-center border-dashed rounded-lg lg:h-[300px] p-4 text-center ${isPending ? 'cursor-not-allowed' : 'cursor-pointer'} transition-colors relative
               ${isDragging ? 'border-blue-500 bg-blue-50' : 'border-gray-300 hover:border-gray-400'}`}
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
-            onClick={() =>  document.getElementById('fileInput')?.click()}
-            disabled={isPending}
+            onClick={() => isPending ? null :  document.getElementById('fileInput')?.click()}
+            
           >
+            {isPending ? <div className="bg-black absolute top-0 left-0 w-full h-full opacity-50" /> : null}
           
                 <input
                 disabled={isPending}
@@ -58,11 +58,11 @@ const UploadPanel = ({handleFileInput, handleSubmit, selectedFile, selectedForma
               accept="image/*"
               onChange={handleFileInput}
             />
-            { selectedFile ? <CircleCheck className="w-16 h-16 mx-auto mb-4 text-green-500 dark:text-green-400" /> : <Upload className="w-16 h-16 mx-auto mb-4 text-blue-300 dark:text-blue-800" />}
+            { selectedFile ? <CircleCheck className="w-16 h-16 mx-auto mb-4 text-green-500 dark:text-green-400" /> : isPending ? <Loader2 className="w-16 h-16 mx-auto mb-4 text-blue-300 dark:text-blue-800 animate-spin" /> : <Upload className="w-16 h-16 mx-auto mb-4 text-blue-300 dark:text-blue-800" />}
             <p className="text-lg mb-2 font-medium text-gray-900 dark:text-gray-300">
-              {selectedFile ? "Image Selected" : "Drag and drop your image here"}
+              {selectedFile ? "Image Selected" : isPending ? "Converting..." : "Drag and drop your image here"}
             </p>
-            <p className="text-gray-500 dark:text-gray-300"> {selectedFile ? "Click to change" : "or click to browse"}</p>
+            <p className="text-gray-500 dark:text-gray-300"> {selectedFile ? "Click to change" : isPending ? "..." : " click to browse"}</p>
           
          
             </div>
@@ -82,7 +82,7 @@ const UploadPanel = ({handleFileInput, handleSubmit, selectedFile, selectedForma
           <div className="mt-8">
             <div className="flex items-center space-x-4">
               <div className="flex-1">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-2">
                   Convert to
                 </label>
                 <select

@@ -64,7 +64,7 @@ useEffect(() => {
 
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 bg-[var(--background)]">
+    <div className="min-h-screen bg-gray-50 py-12 px-4 bg-gray-100 dark:bg-[var(--background)]">
       <ModeToggle/>
       <div className="max-w-3xl mx-auto ">
         {/* Header */}
