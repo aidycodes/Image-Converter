@@ -1,6 +1,5 @@
 'use client'
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { useMutation } from "@tanstack/react-query";
 import { useEffect } from 'react';
 import { ModeToggle } from '@/components/DarkModeToggle';
@@ -8,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import UploadPanel from './upload';
 import Preview from './preview';
 import { Features } from '@/components/features';
+import toast, { Toaster } from 'react-hot-toast';
 
 export const ImageConverter = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -15,9 +15,6 @@ export const ImageConverter = () => {
     const [image, setImage] = useState<string | null>(null);
     const [tab, setTab] = useState('upload')
     const [convertedImageType, setConvertedImageType] = useState<string>(selectedFormat)
-  
-  
-    const router = useRouter()
   
     const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>) => {
       if (e.target.files) {
@@ -28,17 +25,22 @@ export const ImageConverter = () => {
       }
     };
   
-    const { mutate, isPending } = useMutation({
-      mutationFn: (data: any) => {
+    const { mutate, isPending,  } = useMutation({
+      mutationFn: async (data: any) => {
+        setImage(null)
         const formData = new FormData()
         formData.append("File", data)
         formData.append("format", selectedFormat)
   
-        return fetch("/api/v1/Images", {
+        const response = await fetch("/api/v1/Images", {
           method: "POST",
           body: formData,
           
         })
+        if(!response.ok){
+          throw new Error(response.statusText)
+        }
+        return response
       },
       
       onSuccess: async(data) => {
@@ -47,7 +49,12 @@ export const ImageConverter = () => {
          console.log(blob, 'blob')
          setImage(url)
          setConvertedImageType(blob.type)
+         toast.success('Image converted successfully')
         
+      },
+      onError: (error) => {
+        console.log(error)
+        toast.error(error.message)
       }
   })
   const handleSubmit = (data: any) => {
@@ -62,6 +69,10 @@ export const ImageConverter = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 bg-gray-100 dark:bg-[var(--background)]">
+        <Toaster position="bottom-center"  reverseOrder={false}
+        toastOptions={{
+          className: "dark:bg-zinc-700 dark:text-white",
+        }}/>
       <ModeToggle/>
       <div className="max-w-3xl mx-auto ">
         {/* Header */}
