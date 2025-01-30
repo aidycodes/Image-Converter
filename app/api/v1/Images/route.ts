@@ -8,6 +8,13 @@ export function isValidFormat(format: string): format is Formats {
 }
 
 export async function POST(request: NextRequest) {
+try {
+ const contentType = request.headers.get('content-type')?.split(';')[0]  
+
+ if(contentType !== 'multipart/form-data'){
+    return Response.json({ message: 'No valid file provided' }, { status: 400 })
+ }
+
     const formData = await request.formData()
     const file = formData.get('File')
     const format = formData.get('format')
@@ -30,6 +37,10 @@ console.log(format, 'format')
             'Content-Length': convertedImageBuffer.length.toString(),
         },
     })
+} catch (error) {
+    console.error(error)
+    return Response.json({ message: 'Internal server error' }, { status: 500 })
+}
 }
 
 
