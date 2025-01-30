@@ -45,8 +45,7 @@ const UploadPanel = ({handleFileInput, handleSubmit, selectedFile, selectedForma
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleDrop}
-            onClick={() => isPending ? null :  document.getElementById('fileInput')?.click()}
-            
+            onClick={() => isPending ? null :  document.getElementById('fileInput')?.click()}        
           >
             {isPending ? <div className="bg-black absolute top-0 left-0 w-full h-full opacity-50" /> : null}
           
@@ -58,7 +57,7 @@ const UploadPanel = ({handleFileInput, handleSubmit, selectedFile, selectedForma
               accept="image/*"
               onChange={handleFileInput}
             />
-            { selectedFile ? <CircleCheck className="w-16 h-16 mx-auto mb-4 text-green-500 dark:text-green-400" /> : isPending ? <Loader2 className="w-16 h-16 mx-auto mb-4 text-blue-300 dark:text-blue-800 animate-spin" /> : <Upload className="w-16 h-16 mx-auto mb-4 text-blue-300 dark:text-blue-800" />}
+            { isPending ? <Loader2 className="w-16 h-16 mx-auto mb-4 text-blue-300 dark:text-blue-800 animate-spin" /> : selectedFile ? <CircleCheck className="w-16 h-16 mx-auto mb-4 text-green-500 dark:text-green-400" /> : <Upload className="w-16 h-16 mx-auto mb-4 text-blue-300 dark:text-blue-800" />}
             <p className="text-lg mb-2 font-medium text-gray-900 dark:text-gray-300">
               {selectedFile ? "Image Selected" : isPending ? "Converting..." : "Drag and drop your image here"}
             </p>
