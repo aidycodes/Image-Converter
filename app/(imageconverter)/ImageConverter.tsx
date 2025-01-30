@@ -68,7 +68,7 @@ export const ImageConverter = () => {
   }, [image])
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 bg-gray-100 dark:bg-[var(--background)]">
+    <div className="-mt-20 min-h-screen bg-gray-50 py-12 px-4 bg-gray-100 dark:bg-[var(--background)]">
         <Toaster position="bottom-center"  reverseOrder={false}
         toastOptions={{
           className: "dark:bg-zinc-700 dark:text-white",
