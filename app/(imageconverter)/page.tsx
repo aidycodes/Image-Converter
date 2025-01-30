@@ -1,7 +1,7 @@
 import { ImageConverter } from "./ImageConverter";
 
 const Page = () => (
-  <div className="mt-12">
+  <div className="">
     <ImageConverter/>
   </div>
 )

@@ -71,21 +71,21 @@ export const ImageConverter = () => {
   }, [image])
 
   return (
-    <div className="-mt-20 min-h-screen bg-gray-50 py-12 px-4 bg-gray-100 dark:bg-[var(--background)]">
+    <div className="flex flex-col min-h-screen bg-gray-50 mt py-12 px-4 bg-gray-100 dark:bg-[var(--background)] ">
         <Toaster position="bottom-center"  reverseOrder={false}
         toastOptions={{
           className: "dark:bg-zinc-700 dark:text-white",
         }}/>
       <ModeToggle/>
-      <div className="max-w-3xl mx-auto ">
+      <div className="max-w-3xl mx-auto -mt-12 ">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4 dark:text-gray-300">Image Converter</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400">Convert your images to any format with ease</p>
+        <div className="text-center mb-14 ">
+          <h1 className="text-4xl font-bold text-gray-900 mt-1 dark:text-gray-300">Image Converter</h1>
+          <p className="text-lg text-gray-600 dark:text-gray-400 ">Convert your images to any format with ease</p>
         </div>
        
         {/* main  */}
-        <div className="bg-white dark:bg-zinc-900 rounded-lg shadow-lg p-8 lg:h-[780px] ">
+        <div className="bg-white dark:bg-zinc-900 rounded-lg shadow-lg p-8 lg:h-[780px] -mt-12 ">
             <Tabs defaultValue="upload" value={tab}>
         <TabsList>
             <TabsTrigger onClick={() => setTab('upload')} value="upload">Upload</TabsTrigger>
