@@ -2,7 +2,7 @@ import { ImageConverter } from "./ImageConverter";
 
 const Page = () => (
   <div className="">
-    <ImageConverter/>
+    <ImageConverter />
   </div>
-)
+);
 export default Page;
