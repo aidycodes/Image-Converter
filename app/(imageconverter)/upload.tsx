@@ -7,7 +7,7 @@ import { Loader2 } from 'lucide-react';
 
 interface UploadPanelProps {
     handleFileInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleSubmit: (data: any) => void;
+    handleSubmit: (data: File | null) => void;
     selectedFile: File | null;
     selectedFormat: string;
     setSelectedFormat: (format: string) => void;

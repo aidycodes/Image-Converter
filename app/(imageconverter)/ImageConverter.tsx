@@ -26,7 +26,10 @@ export const ImageConverter = () => {
     };
   
     const { mutate, isPending,  } = useMutation({
-      mutationFn: async (data: any) => {
+      mutationFn: async (data: File | null) => {    
+        if(!data){
+          throw new Error("No file provided")
+        }
         setImage(null)
         const formData = new FormData()
         formData.append("File", data)
@@ -57,7 +60,7 @@ export const ImageConverter = () => {
         toast.error(error.message)
       }
   })
-  const handleSubmit = (data: any) => {
+  const handleSubmit = (data: File | null) => {
       mutate(data);
     };
   
