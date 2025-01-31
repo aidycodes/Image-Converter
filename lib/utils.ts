@@ -10,3 +10,4 @@ export type Formats = 'jpg' | 'png' | 'webp' | 'gif' | 'jp2' | 'tiff' | 'avif' |
 export function isValidFormat(format: string): format is Formats {
   return ['jpg', 'png', 'webp', 'gif', 'jp2', 'tiff', 'avif', 'heif', 'jxl', 'raw'].includes(format)
 }
+

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { saveAs } from "file-saver";
-
+import { useEffect, useState } from "react";
 interface PreviewProps {
   convertedImage?: string;
   selectedFormat: string;
@@ -10,6 +10,8 @@ interface PreviewProps {
 }
 
 const Preview = ({ convertedImage, convertedImageType }: PreviewProps) => {
+
+
   return (
     <div>
       {convertedImage ? (
@@ -17,7 +19,7 @@ const Preview = ({ convertedImage, convertedImageType }: PreviewProps) => {
           <div className="relative aspect-square w-full mb-4 bg-gray-100 rounded-lg overflow-hidden h-[400px] dark:bg-zinc-900">
             <Image
               src={convertedImage}
-              alt="Converted preview"
+              alt={convertedImageType === 'image/tiff' ? `Your Browser does not support TIFF` : `Converted preview`}
               className="object-contain w-full h-full cursor-pointer"
               onClick={() => window.open(convertedImage)}
               width={400}
