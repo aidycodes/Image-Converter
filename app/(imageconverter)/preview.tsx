@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { saveAs } from "file-saver";
-import { useEffect, useState } from "react";
+
 interface PreviewProps {
   convertedImage?: string;
   selectedFormat: string;
